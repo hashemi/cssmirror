@@ -2,6 +2,12 @@ import os
 from flask import Flask, request, redirect, url_for, send_file, render_template
 from zipmirror import zipmirror
 from tempfile import TemporaryFile
+from time import time
+from werkzeug.datastructures import Headers
+try:
+    from werkzeug.wsgi import wrap_file
+except ImportError:
+    from werkzeug.utils import wrap_file
 
 app = Flask(__name__)
 app.debug = True
@@ -22,12 +28,18 @@ def upload_file():
 
       root, ext = os.path.splitext(uploaded_file.filename)
       attachment_filename = root + '-rtl' + ext
-      
-      return send_file(
-        filename_or_fp = mirrored_file,
-        mimetype = 'application/zip',
-        as_attachment = True,
-        attachment_filename = attachment_filename,
-        add_etags = False)
+
+      headers = Headers()
+      headers.add('Content-Disposition', 'attachment',
+                      filename=attachment_filename)
+      data = wrap_file(request.environ, mirrored_file)
+      rv = app.response_class(data, mimetype='application/zip',
+                      headers=headers, direct_passthrough=True)
+      rv.cache_control.public = True
+      cache_timeout = app.get_send_file_max_age(attachment_filename)
+      if cache_timeout is not None:
+          rv.cache_control.max_age = cache_timeout
+          rv.expires = int(time() + cache_timeout)
+      return rv
   else:
     return render_template('index.html')

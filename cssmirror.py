@@ -23,7 +23,7 @@ def cssmirror(f):
   pstr += r"|('(([^']|\\')*)'))+"               # single quoted string
   p = re.compile(pstr)
   f = re.sub(p, new_delimeter, f)
-  
+
   # place the default delimeter <0> around colons to make them identfiable
   f = re.sub(r'(?<!>):', '<0>:', f)
   f = re.sub(r':(?!<)',  ':<0>', f)
@@ -35,10 +35,10 @@ def cssmirror(f):
     s = s.replace(v2, v1)
     s = s.replace('<' + v1 + '>', v2)
     return s
- 
+
   def swap_right_left(m):
     return swap('right', 'left', m.group(0))
-  
+
   def swap_rtl_ltr(m):
     return swap('rtl', 'ltr', m.group(0))
 
@@ -67,7 +67,7 @@ def cssmirror(f):
                                 'background', 'text-align']
   p = re.compile('(' + '|'.join(prop_names_for_value_swap) + ')<[0-9]+>:<[0-9]+>(.*?)[;}]')
   f = re.sub(p, swap_right_left, f)
-  
+
   # change the direction property value from "ltr" to "rtl"
   p = re.compile('direction<[0-9]+>:<[0-9]+>(.*?)[;}]')
   f = re.sub(p, swap_rtl_ltr, f)
@@ -75,7 +75,7 @@ def cssmirror(f):
   # swap combined values
   def swap_combined_values(m):
     for i in range(10):
-      print '%02d: %s' % (i+1, m.group(i+1))
+      print('%02d: %s' % (i+1, m.group(i+1)))
     rstr  = m.group(1) + m.group(2) + ':' + m.group(3)
     rstr += m.group(4) + m.group(5) + m.group(10)  + m.group(7)
     rstr += m.group(8) + m.group(9) + m.group(6)

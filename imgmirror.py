@@ -1,10 +1,10 @@
-import StringIO
+from io import BytesIO
 from PIL import Image
 
 
 def imgmirror(f, type):
-	input = StringIO.StringIO(f)
-	output = StringIO.StringIO()
+	input = BytesIO(f)
+	output = BytesIO()
 	im = Image.open(input)
 	fm = im.transpose(Image.FLIP_LEFT_RIGHT)
 	fm.save(output, type)

@@ -1,9 +1,7 @@
 from imgmirror  import imgmirror
 from cssmirror  import cssmirror
-from htmlmirror import htmlmirror
+#from htmlmirror import htmlmirror
 from zipfile import ZipFile, ZIP_DEFLATED
-
-from HTMLParser import HTMLParseError
 
 def zipmirror(input_file, output_file):
   input = ZipFile(input_file, 'r')
@@ -13,9 +11,9 @@ def zipmirror(input_file, output_file):
     lower_name = name.lower()
     try:
       if lower_name.endswith('.css'):
-        replacement = cssmirror(input.read(name))
-      elif lower_name.endswith('.html') or name.endswith('.htm') or name.endswith('.php'):
-          replacement = htmlmirror(input.read(name))
+        replacement = cssmirror(input.read(name).decode()).encode()
+      #elif lower_name.endswith('.html') or name.endswith('.htm') or name.endswith('.php'):
+      #  replacement = htmlmirror(input.read(name).decode()).encode()
       elif lower_name.endswith('.png'):
         replacement = imgmirror(input.read(name), 'png')
       elif lower_name.endswith('.gif'):
@@ -26,9 +24,9 @@ def zipmirror(input_file, output_file):
         replacement = imgmirror(input.read(name), 'jpeg')
       else:
         replacement = input.read(name)
-    except (HTMLParseError, IOError):
+    except (IOError,):
       replacement = input.read(name)
-  
+
     output.writestr(name, replacement)
 
   input.close()

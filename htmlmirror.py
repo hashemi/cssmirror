@@ -1,5 +1,5 @@
 import re
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 
 class HTMLMirrorParser(HTMLParser):
   def __init__(self):
@@ -46,7 +46,7 @@ class HTMLMirrorParser(HTMLParser):
       new = re.sub('(/?>)$', r' dir="rtl"\1', self.get_starttag_text())
       self.replacements.append((line, start, length, new))
       return
-        
+
 
 def htmlmirror(f):
   p = HTMLMirrorParser()
