@@ -7,6 +7,9 @@ def zipmirror(input_file, output_file):
   output = ZipFile(output_file, 'w', ZIP_DEFLATED)
 
   for name in input.namelist():
+    if name.startswith('__MACOSX'):
+      continue
+
     lower_name = name.lower()
     try:
       if lower_name.endswith('.css'):
