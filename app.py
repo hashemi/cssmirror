@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, redirect, url_for, send_file, render_template
-from zipmirror import zipmirror
+from mirrorlib.zipmirror import zipmirror
 from tempfile import TemporaryFile
 from time import time
 from werkzeug.datastructures import Headers
@@ -49,3 +49,6 @@ def upload_file():
     return rv
   else:
     return render_template('index.html')
+
+if __name__ == "__main__":
+  app.run()

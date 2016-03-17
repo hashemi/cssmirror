@@ -1,6 +1,6 @@
-from imgmirror  import imgmirror
-from cssmirror  import cssmirror
-#from htmlmirror import htmlmirror
+from .imgmirror import imgmirror
+from .cssmirror import cssmirror
+#from .htmlmirror import htmlmirror
 from zipfile import ZipFile, ZIP_DEFLATED
 
 def zipmirror(input_file, output_file):
