@@ -1,0 +1,14 @@
+p {
+  text-align: left;
+  border-right: 5px;
+  margin: 1px 2px 3px 4px;
+  direction: ltr;
+}
+
+/*
+
+div {
+  direction: rtl;
+}
+
+*/
