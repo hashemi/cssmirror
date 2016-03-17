@@ -11,7 +11,7 @@ except ImportError:
 
 app = Flask(__name__)
 app.debug = True
-app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024
 app.secret_key = 'meh, not particularly secret'
 
 def allowed_file(filename):
