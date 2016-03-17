@@ -2,10 +2,35 @@ import unittest
 from mirrorlib.cssmirror import cssmirror
 from mirrorlib.imgmirror import imgmirror
 from mirrorlib.zipmirror import zipmirror
+from mirrorlib.mirrorselect import mirrorselect
 from io import BytesIO
 
 class MirrorLibTest(unittest.TestCase):
-  def test_css_file(self):
+  def test_select_inert_file(self):
+    self.assertIsNone(mirrorselect('example.txt'))
+
+  def test_select_css_file(self):
+    self.assertEqual(mirrorselect('test/example.css'), cssmirror)
+
+  def test_select_css_mac_metadata_file(self):
+    self.assertIsNone(mirrorselect('__MACOSX/.-example.css'))
+
+  def test_select_zip_file(self):
+    self.assertEqual(mirrorselect('somefile.zip'), zipmirror)
+
+  def test_select_png_file(self):
+    self.assertEqual(mirrorselect('somefile.png'), imgmirror)
+
+  def test_select_png_file(self):
+    self.assertEqual(mirrorselect('somefile.png'), imgmirror)
+
+  def test_select_gif_file(self):
+    self.assertEqual(mirrorselect('somefile.gif'), imgmirror)
+
+  def test_select_jpeg_file(self):
+    self.assertEqual(mirrorselect('somefile.jpeg'), imgmirror)
+
+  def test_mirror_css_file(self):
     with open('fixtures/1-input.css', 'rb') as i:
       o = BytesIO()
       cssmirror(i, o)
