@@ -74,8 +74,6 @@ def cssmirror(f):
 
   # swap combined values
   def swap_combined_values(m):
-    for i in range(10):
-      print('%02d: %s' % (i+1, m.group(i+1)))
     rstr  = m.group(1) + m.group(2) + ':' + m.group(3)
     rstr += m.group(4) + m.group(5) + m.group(10)  + m.group(7)
     rstr += m.group(8) + m.group(9) + m.group(6)
