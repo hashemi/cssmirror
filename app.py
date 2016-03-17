@@ -1,8 +1,9 @@
 import os
 from flask import Flask, request, redirect, url_for, send_file, render_template, session
-from mirrorlib.zipmirror import zipmirror
+from mirrorlib.mirrorselect import mirrorselect
 from tempfile import TemporaryFile
 from time import time
+from mimetypes import guess_type
 from werkzeug.datastructures import Headers
 try:
   from werkzeug.wsgi import wrap_file
@@ -24,23 +25,26 @@ def upload_file():
     uploaded_file = request.files['archive']
 
     if not uploaded_file:
-      return ('No uploaded file.', 400, [])
+      return ('You did not upload a file.', 400, [])
 
-    if not allowed_file(uploaded_file.filename):
-      return ('Invalid file. Only zip files are accepted.', 400, [])
+    mirror = mirrorselect(uploaded_file.filename)
+    if mirror is None:
+      return ('Unrecognized file extension. Only zip, css and image files are accepted.', 400, [])
 
     mirrored_file = TemporaryFile()
-    zipmirror(uploaded_file, mirrored_file)
+    mirror(uploaded_file, mirrored_file)
     mirrored_file.seek(0)
 
     root, ext = os.path.splitext(uploaded_file.filename)
     attachment_filename = root + '-rtl' + ext
 
+    mimetype = guess_type(uploaded_file.filename)[0]
+
     headers = Headers()
     headers.add('Content-Disposition', 'attachment',
                       filename=attachment_filename)
     data = wrap_file(request.environ, mirrored_file)
-    rv = app.response_class(data, mimetype='application/zip',
+    rv = app.response_class(data, mimetype=mimetype,
                       headers=headers, direct_passthrough=True)
     rv.cache_control.public = True
     cache_timeout = app.get_send_file_max_age(attachment_filename)
