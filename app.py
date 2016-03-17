@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, redirect, url_for, send_file, render_template
+from flask import Flask, request, redirect, url_for, send_file, render_template, session
 from mirrorlib.zipmirror import zipmirror
 from tempfile import TemporaryFile
 from time import time
@@ -12,6 +12,7 @@ except ImportError:
 app = Flask(__name__)
 app.debug = True
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+app.secret_key = 'meh, not particularly secret'
 
 def allowed_file(filename):
   return '.' in filename and \
@@ -19,7 +20,7 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
-  if request.method == 'POST':
+  if request.method == 'POST' and session['legit']:
     uploaded_file = request.files['archive']
 
     if not uploaded_file:
@@ -48,6 +49,7 @@ def upload_file():
           rv.expires = int(time() + cache_timeout)
     return rv
   else:
+    session['legit'] = True
     return render_template('index.html')
 
 if __name__ == "__main__":
