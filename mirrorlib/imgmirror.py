@@ -1,4 +1,3 @@
-from io import BytesIO
 from PIL import Image
 
 def imgmirror(ifile, ofile):

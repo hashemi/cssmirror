@@ -1,18 +1,17 @@
-from .imgmirror import imgmirror
-from .cssmirror import cssmirror
-from .mirrorselect import mirrorselect
-from zipfile import ZipFile, ZIP_DEFLATED
-from io import BytesIO
+import zipfile
+import io
+
+from . import mirrorselect
 
 def zipmirror(input_file, output_file):
-  izip = ZipFile(input_file, 'r')
-  ozip = ZipFile(output_file, 'w', ZIP_DEFLATED)
+  izip = zipfile.ZipFile(input_file, 'r')
+  ozip = zipfile.ZipFile(output_file, 'w', zipfile.ZIP_DEFLATED)
 
   for filename in izip.namelist():
     ifile = izip.open(filename)
-    ofile = BytesIO()
+    ofile = io.BytesIO()
 
-    mirror = mirrorselect(filename)
+    mirror = mirrorselect.mirrorselect(filename)
     if mirror is None:
       ofile.write(ifile.read())
     else:
