@@ -1,6 +1,7 @@
 import re
 
-def cssmirror(f):
+def cssmirror(ifile, ofile):
+  f = ifile.read().decode('utf-8')
   delimeters = [''] # 0 -> default empty delimeter
 
   # used as a replacement for the delimieters
@@ -93,5 +94,4 @@ def cssmirror(f):
   f = f.replace('&gt;', '>')
   f = f.replace('&lt;', '<')
   f = f.replace('&amp;', '&')
-
-  return f
+  ofile.write(f.encode())
