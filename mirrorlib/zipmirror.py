@@ -1,6 +1,5 @@
 from .imgmirror import imgmirror
 from .cssmirror import cssmirror
-#from .htmlmirror import htmlmirror
 from zipfile import ZipFile, ZIP_DEFLATED
 
 def zipmirror(input_file, output_file):
@@ -12,8 +11,6 @@ def zipmirror(input_file, output_file):
     try:
       if lower_name.endswith('.css'):
         replacement = cssmirror(input.read(name).decode()).encode()
-      #elif lower_name.endswith('.html') or name.endswith('.htm') or name.endswith('.php'):
-      #  replacement = htmlmirror(input.read(name).decode()).encode()
       elif lower_name.endswith('.png'):
         replacement = imgmirror(input.read(name), 'png')
       elif lower_name.endswith('.gif'):
