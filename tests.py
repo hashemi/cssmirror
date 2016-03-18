@@ -4,6 +4,7 @@ from mirrorlib.imgmirror import imgmirror
 from mirrorlib.zipmirror import zipmirror
 from mirrorlib.mirrorselect import mirrorselect
 from io import BytesIO
+from os import devnull
 
 def mirror_image(image, times):
   result = image
@@ -83,7 +84,11 @@ class MirrorLibTest(unittest.TestCase):
 
   def test_zip_with_mac_metadata(self):
     with open('fixtures/mac-metadata-test.zip', 'rb') as i:
-      from os import devnull
+      zipmirror(i, devnull)
+      self.assertTrue(True)
+
+  def test_zip_within_zip(self):
+    with open('fixtures/zip-within.zip', 'rb') as i:
       zipmirror(i, devnull)
       self.assertTrue(True)
 

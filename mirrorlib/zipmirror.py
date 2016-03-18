@@ -12,7 +12,7 @@ def zipmirror(input_file, output_file):
     ofile = io.BytesIO()
 
     mirror = mirrorselect.mirrorselect(filename)
-    if mirror is None:
+    if mirror is None or mirror == zipmirror:
       ofile.write(ifile.read())
     else:
       mirror(ifile, ofile)
