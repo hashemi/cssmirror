@@ -2,3 +2,4 @@
 venv
 tmp
 *.pyc
+.python-version
