@@ -6,11 +6,12 @@
     html {
       margin: 0 auto;
       max-width: 620px;
+      background-color: ghostwhite;
     }
 
     body, input {
-      font-family: Helvetica, sans-serif;
-      font-size: 18px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-size: 1.1rem;
       text-align: center;
     }
 
@@ -29,24 +30,19 @@
     }
 
     #form {
-      padding: 40px 0;
-      border-top: 1px dotted #5b5b76;
-      border-bottom: 1px dotted #5b5b76;
+      padding: 3rem;
+      border-radius: 36px;
+      background-color: white;
     }
 
     #form input {
-      padding: 15px;
-    }
-
-    #header, #footer {
-      color: #5b5b76;
+      font-size: 1.3rem;
+      padding: 1rem;
     }
     </style>
 </head>
 <body>
 <h1>CSSMirror</h1>
-<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cssmirror.com/" data-count="none">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
 
 <div id=header>
   <p class=english-column>
@@ -57,23 +53,20 @@
 
 <div id=form>
   <form action="" method=post enctype=multipart/form-data>
-      <input type=file id=file_upload name=archive accept="application/zip,image/*,text/css,.css"><br>
-      <input type=submit value="Upload • تحميل">
+      <p><input type=file id=file_upload name=archive accept="application/zip,image/*,text/css,.css"></p>
+      <p><input type=submit value="Upload • تحميل"></p>
   </form>
 </div>
 
 <div id=footer>
 <p class=english-column>
-&copy; Ahmad Alhashemi, 2005-2016
-<br>
-<a href="https://twitter.com/hashemi_md" class="twitter-follow-button" data-show-count="false">Follow @hashemi_md</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+&copy; Ahmad Alhashemi, 2005-2021
 </p>
 
 <p class=arabic-column dir=rtl>
-&copy; أحمد الهاشمي، ٢٠٠٥-٢٠١٦
-<br>
-<a href="https://twitter.com/ahmadh" class="twitter-follow-button" data-show-count="false">Follow @ahmadh</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+&copy; أحمد الهاشمي، ٢٠٠٥-٢٠٢١
+</p>
+
+<p style="clear: both;"><a href="https://twitter.com/ahmadh">@ahmadh</a></p>
 
 </body>
